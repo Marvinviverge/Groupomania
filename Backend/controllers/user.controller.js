@@ -50,3 +50,10 @@ exports.login = (req, res, next) => {
         })
         .catch((error) => res.status(500).json({ error }));
 };
+
+// Création de fonctionnalité pour afficher tous les Users
+exports.getAllUser = (req, res, next) => {
+    User.find()
+        .then((users) => res.status(200).json(users))
+        .catch((error) => res.status(400).json({ error: error }));
+}
