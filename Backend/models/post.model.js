@@ -5,12 +5,11 @@ const mongoose = require("mongoose");
 const ModelPost = mongoose.Schema({
 
     userId: { type: String, required: true },
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    imageUrl: { type: String },
+    text: { type: String, required: true },
+    imageUrl: { type: String, allowNull: true },
     likes: { type: Number, defaut: 0 },
     usersLiked: { type: [String] },
-
-});
+},
+    { timestamps: true });
 
 module.exports = mongoose.model("Post", ModelPost);

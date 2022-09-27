@@ -3,6 +3,19 @@ const fs = require('fs');
 
 // Création de fonctionnalité pour créer un post
 exports.createPost = (req, res, next) => {
+    const postObject = JSON.parse(req.body.post);
+    delete postObject._id;
+    delete postObject._userId;
+    const post = new Post({
+        ...postObject,
+        userId: req.auth.userId,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        likes: 0,
+        usersLiked: [""],
+    });
+    post.save()
+        .then(() => res.status(201).json({ message: 'Post enregistré!' }))
+        .catch(error => res.status(400).json({ error }))
 
 }
 
@@ -22,12 +35,65 @@ exports.getOnePost = (req, res, next) => {
 
 // Création de fonctionnalité permettant de modifier un post existant
 exports.modifyPost = async (req, res, next) => {
+    const postObject = req.file ? {
+        ...JSON.parse(req.body.post),
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } : { ...req.body };
 
+    delete postObject._userId;
+
+    try {
+        let post = await Post.findOne({ _id: req.params.id })
+
+        // Si le post n'existe pas
+        if (post === null) {
+            return res.status(404).json({ message: "Ce post n'existe pas" })
+        }
+
+        // Si l'utilisateur n'est pas le créateur du post
+        if (post.userId != req.auth.userId) {
+            return res.status(401).json({ message: 'Non autorisé' });
+        } else { // Si l'utilisateur est le créateur du post
+            if (req.file) { // Modification de l'image dans la base de donnée si besoin
+                const filename = post.imageUrl.split('/images/')[1];
+                fs.unlink(`images/${filename}`, () => {
+                    Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                        .then(() => { res.status(200).json({ message: 'Post modifié !' }) })
+                        .catch(error => res.status(401).json({ error }));
+                });
+            } else { // Modification seulement des informations du post
+                Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+                    .then(() => { res.status(200).json({ message: 'Post modifié !' }) })
+                    .catch(error => res.status(401).json({ error }));
+            }
+        }
+    }
+
+    catch (err) {
+        res.status(400).json({ err });
+    };
 }
 
 // Création de fonctionnalité pour supprimer un post
 exports.deletePost = async (req, res, next) => {
+    try {
+        let post = await Post.findOne({ _id: req.params.id })
 
+        if (post.userId != req.auth.userId) { // Si l'utilisateur n'est pas le créateur du post ou administrateur
+            return res.status(401).json({ message: 'Non autorisé' });
+        } else { // Si l'utilisateur est le créateur du post
+            const filename = post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => { // Suppression de l'image du post dans la base de donnée
+                Post.deleteOne({ _id: req.params.id })
+                    .then(() => { res.status(200).json({ message: 'Objet supprimé !' }) })
+                    .catch(error => res.status(401).json({ error }));
+            });
+        }
+    }
+
+    catch (err) {
+        res.status(400).json({ err });
+    };
 }
 
 // Création de fonctionnalité permettant de Like un post

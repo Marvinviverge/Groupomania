@@ -7,11 +7,12 @@ const ModelUser = mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     nom: { type: String },
-    prénom: { type: String },
-    présentation: { type: String },
+    prenom: { type: String },
+    presentation: { type: String },
     imageURL: { type: String },
-    rôle: { type: Number, defaut: 0 },
-});
+    role: { type: Number, defaut: 0 },
+},
+    { timestamps: true });
 
 /* Verification email unique */
 ModelUser.plugin(uniqueValidator);
