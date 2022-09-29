@@ -1,14 +1,13 @@
 /* Import des modules necessaires */
 const mongoose = require("mongoose");
 
-/* Schema Sauce */
+/* Schema User */
 const ModelPost = mongoose.Schema({
-
     userId: { type: String, required: true },
     text: { type: String, required: true },
     imageUrl: { type: String, allowNull: true },
-    likes: { type: Number, defaut: 0 },
-    usersLiked: { type: [String] },
+    likes: { type: Number, required: true },
+    usersLiked: { type: ["String <userId>"], required: true },
 },
     { timestamps: true });
 
