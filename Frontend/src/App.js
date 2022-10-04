@@ -5,6 +5,7 @@ import Home from '@/pages/Public/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Error from '@/_utils/Error';
 import Layout from '@/pages/Layout';
+import Login from '@/pages/Auth/Login';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route index element={<Home />} />
 
             <Route path='/home' element={<Home />} />
+            <Route path='/auth' element={<Login />} />
 
             <Route path='*' element={<Error />} />
           </Route>
