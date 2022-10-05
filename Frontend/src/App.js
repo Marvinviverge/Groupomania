@@ -1,28 +1,33 @@
 //import logo from '@/logo.svg';
 import '@/App.css';
 
-import Home from '@/pages/Public/Home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Error from '@/_utils/Error';
-import Layout from '@/pages/Layout';
-import Login from '@/pages/Auth/Login';
+import PublicRouter from '@/pages/Public/PublicRouter';
+import AuthRouter from '@/pages/Auth/AuthRouter';
+import AuthGuard from '@/_helpers/AuthGuard';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+
         <Routes>
 
           <Route element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index element={<AuthRouter />} />
+            <Route path="auth/*" element={<AuthRouter />} />
+          </Route>
 
-            <Route path='/home' element={<Home />} />
-            <Route path='/auth' element={<Login />} />
-
-            <Route path='*' element={<Error />} />
+          <Route element={<Layout />}>
+            <Route path="/*" element={
+              <AuthGuard>
+                <PublicRouter />
+              </AuthGuard>
+            } />
           </Route>
 
         </Routes>
+
       </BrowserRouter>
     </div>
   );

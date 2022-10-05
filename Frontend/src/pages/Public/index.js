@@ -1,0 +1,1 @@
+export { defaut as Home } from './Home'
