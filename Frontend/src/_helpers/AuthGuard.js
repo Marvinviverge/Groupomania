@@ -1,12 +1,19 @@
-import { Navigate } from "react-router-dom";
+// import des modules necessaire
+import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { accountService } from "@/_services/account.service";
 
+// fonction de blocage de route
 const AuthGuard = ({ children }) => {
-    let logged = false
 
-    if (!logged) {
-        <Navigate to="auth/login" />
+    useEffect(() => {
+    }, [])
 
-    } else return children
+    if (!accountService.isLogged()) {
+        return <Navigate to="auth/login" />
+
+    }
+    return children
 };
 
 export default AuthGuard;

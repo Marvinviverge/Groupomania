@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PublicRouter from '@/pages/Public/PublicRouter';
 import AuthRouter from '@/pages/Auth/AuthRouter';
 import AuthGuard from '@/_helpers/AuthGuard';
+import Layout from '@/pages/Layout'
 
 function App() {
   return (

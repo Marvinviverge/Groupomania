@@ -8,8 +8,7 @@ import Error from '@/_utils/Error';
 const PublicRouter = () => {
     return (
         <Routes>
-            <Route index element={<Home />} />
-            <Route path='/home' element={<Home />} />
+            <Route path='home' element={<Home />} />
             <Route path='*' element={<Error />} />
         </Routes>
     );
