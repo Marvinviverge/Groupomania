@@ -1,13 +1,16 @@
 const express = require("express");
+const cors = require('cors')
 const postRoutes = require("./routes/post.routes");
 const userRoutes = require("./routes/user.routes");
 const path = require("path");
+
 
 /* Initialisation de l'API */
 const app = express();
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json());
+app.use(cors());
 
 /* Mise en place reponses headers */
 app.use((req, res, next) => {

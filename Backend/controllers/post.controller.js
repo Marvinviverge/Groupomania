@@ -6,7 +6,6 @@ const fs = require('fs');
 exports.createPost = async (req, res, next) => {
     try {
         const userId = req.body.userId;
-
         const post = req.file ?
             {
                 ...req.body,
@@ -30,7 +29,7 @@ exports.createPost = async (req, res, next) => {
 // Création de fonctionnalité pour afficher tous les posts
 exports.getAllPost = (req, res, next) => {
 
-    Post.find()
+    Post.find().sort({ createdAt: -1 })
         .then(async (posts) => {
             let postArray = [];
 

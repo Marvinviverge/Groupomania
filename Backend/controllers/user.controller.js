@@ -13,6 +13,8 @@ exports.signup = (req, res, next) => {
             const user = new User({
                 email: req.body.email,
                 password: hash,
+                nom: req.body.name,
+                prenom: req.body.lastname,
             });
             // Creation de l'utilisateur
             user
@@ -41,7 +43,7 @@ exports.login = (req, res, next) => {
                     // Connexion valide = token 1H
                     res.status(200).json({
                         userId: user._id,
-                        token: jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
+                        token: jwt.sign({ userId: user._id, nom: user.nom, prenom: user.prenom, email: user.email, presentation: user.presentation, imageUrl: user.imageUrl, role: user.role, createdAt: user.createdAt }, process.env.SECRET_KEY, {
                             expiresIn: "1h",
                         }),
                     });
@@ -56,4 +58,5 @@ exports.getAllUser = (req, res, next) => {
     User.find()
         .then((users) => res.status(200).json(users))
         .catch((error) => res.status(400).json({ error: error }));
+
 }

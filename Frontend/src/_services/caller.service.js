@@ -4,7 +4,10 @@ import { accountService } from '@/_services/account.service'
 
 
 const Axios = axios.create({
-    baseURL: 'http://localhost:3000'
+    baseURL: 'http://localhost:3000',
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+    }
 })
 
 /**
@@ -19,6 +22,5 @@ Axios.interceptors.request.use(request => {
 
     return request
 })
-
 
 export default Axios

@@ -1,6 +1,6 @@
 // import des modules necessaire
 import React from 'react';
-import image from "@/Images/depositphotos_9199988-stock-photo-oops-icon.jpg"
+import image from "@/images/depositphotos_9199988-stock-photo-oops-icon.jpg"
 import { useNavigate } from 'react-router-dom';
 
 // affichage de la page d'erreur
