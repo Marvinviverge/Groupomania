@@ -1,5 +1,9 @@
 /*---------   General Rules       ---------*/
 
+* {
+    font-family: lato;
+}
+
 .is-divider {
     display: block;
     width: 30%;
@@ -16,10 +20,11 @@
 
 .content ul {
     margin-left: 0px;
+    margin-top: 0px !important;
 }
 
 .content li {
-    margin-top: 0em;
+    margin-top: 0em !important;
 }
 
 button {
@@ -52,8 +57,9 @@ button {
     margin-bottom: 20px;
 }
 
-.nom svg {
+.badge {
     color: rgb(236, 152, 152);
+    font-size: 30px;
 }
 
 .title {
@@ -81,11 +87,15 @@ button {
 }
 
 .mrgin {
-    margin: 10px 10px 0 10px;
+    margin: 10px 15px 0 15px;
 }
 
 .image-sze {
     max-height: inherit !important;
+}
+
+.heartstyle {
+    font-size: 30px;
 }
 
 /*---------   AllUser Rules       ---------*/
@@ -114,8 +124,9 @@ button {
 
 .eachUser {
     margin-bottom: 20px;
-    flex-wrap: wrap;
+    flex-direction: column;
     display: flex;
+    align-items: flex-start;
 
 }
 
@@ -127,6 +138,7 @@ button {
     margin-bottom: 20px;
     list-style: none;
     transition: transform 0.2s ease-in-out;
+    width: 100%;
 }
 
 .user:hover {
@@ -141,6 +153,7 @@ button {
     border: 2px solid rgb(225, 29, 72);
     text-align: center;
     padding: 1px;
+    margin-right: 5px;
 }
 
 /*---------   Formulaire Rules       ---------*/
@@ -252,4 +265,9 @@ button {
     position: absolute;
     bottom: 2em;
     right: 3em;
+}
+
+.likeOrNot {
+    display: flex;
+    justify-content: space-between;
 }

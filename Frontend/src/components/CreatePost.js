@@ -101,6 +101,7 @@ const CreatePost = () => {
                                 <img className="image-sze" key={ImagePreview} src={ImagePreview} alt="aperçu" />
                             </figure>
                         </div>
+                        <div>{msg}</div>
                     </section>
                     <section className="modal-card-foot">
                         <button className="button is-success" onClick={() => validatePost()}>Valider</button>

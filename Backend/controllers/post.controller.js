@@ -122,7 +122,7 @@ exports.deletePost = (req, res, next) => {
 // Création de fonctionnalité permettant de Like un post
 exports.likePost = (req, res, next) => {
 
-    Post.findOne({ id: req.body.id })
+    Post.findOne({ _id: req.body._id })
         .then(post => {
             if (!post.usersLiked.includes(req.body.userId) && req.body.likes === 1) {
                 Post.updateOne({ _id: req.body._id }, { $inc: { likes: 1 }, $push: { usersLiked: req.body.userId } })
@@ -130,7 +130,7 @@ exports.likePost = (req, res, next) => {
                     .catch(error => res.status(400).json({ error }));
             }
             if (post.usersLiked.includes(req.body.userId) && req.body.likes === -1) {
-                Post.updateOne({ id: req.body.id }, { $inc: { likes: -1 }, $pull: { usersLiked: req.body.userId } })
+                Post.updateOne({ _id: req.body._id }, { $inc: { likes: -1 }, $pull: { usersLiked: req.body.userId } })
                     .then(() => res.status(200).json({ message: 'post unliked !' }))
                     .catch(error => res.status(400).json({ error }));
             }

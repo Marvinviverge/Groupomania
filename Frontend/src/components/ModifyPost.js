@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { postService } from "@/_services/post.service";
-import { accountService } from "@/_services/account.service";
+
 
 import reactImageSize from 'react-image-size';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -50,15 +50,15 @@ const ModifyPost = ({ post, setLoad }) => {
 
     const onImageChange = async (event) => {
 
-        setImagePreviewName(event.target.files[0].name)
-        if (event.target.files && event.target.files[0]) {
-            setImagePreview(URL.createObjectURL(event.target.files[0]));
-        }
         try {
             const { width, height } = await reactImageSize(URL.createObjectURL(event.target.files[0]));
             if (width <= 10000 && height <= 10000) {
-                setMsg();
+                setMsg('');
                 setFile(event.target.files[0]);
+                setImagePreviewName(event.target.files[0].name)
+                if (event.target.files && event.target.files[0]) {
+                    setImagePreview(URL.createObjectURL(event.target.files[0]));
+                }
             } else {
                 setMsg("Veuillez sélectionner une image dont les dimensions n'excédent pas 250x250");
             }
@@ -108,7 +108,7 @@ const ModifyPost = ({ post, setLoad }) => {
                                 {ImagePreview ? (<img className="" key={ImagePreview} src={ImagePreview} crossOrigin="anonymous" alt="aperçu" />
                                 ) : ("")}</figure>
                         </div>
-
+                        <div>{msg}</div>
                     </section>
                     <section className="modal-card-foot">
                         <button className="button is-success" onClick={() => validatePost()}>Valider</button>

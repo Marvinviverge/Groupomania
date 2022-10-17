@@ -1,5 +1,5 @@
 // import des modules necessaires
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import './header.css'
@@ -13,15 +13,6 @@ import CreatePost from '@/components/CreatePost';
 const Header = () => {
     const navigate = useNavigate()
     const [isActive, setisActive] = React.useState(false);
-    const flag = useRef(false)
-
-    useEffect(() => {
-
-    }, [])
-
-    const addPost = () => {
-        navigate("/addpost", { replace: true })
-    }
 
     const Logout = () => {
         accountService.logout();
@@ -66,11 +57,11 @@ const Header = () => {
                         <div className="navbar-end">
                             <div className="navbar-item has-dropdown is-hoverable">
                                 <div className="navbar-link" href="#">
-                                    <img className="is-rounded" src={LogoUser} />
+                                    <img className="is-rounded" src={LogoUser} alt="dropdown logo" />
                                 </div>
                                 <div className="navbar-dropdown is-boxed">
                                     <div className="navbar-item">
-                                        <img className="is-rounded" src={LogoConstruct} /><span className="linkpagemenu">Profil</span>
+                                        <img className="is-rounded" src={LogoConstruct} alt="items" /><span className="linkpagemenu">Profil</span>
                                     </div>
                                     <hr className="navbar-divider" />
                                     <a className="navbar-item is-active" onClick={Logout} >

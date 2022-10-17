@@ -1,4 +1,5 @@
 /** Import des modules nécessaires */
+import { accountService } from './account.service'
 import Axios from './caller.service'
 
 // appel service de l'api
@@ -24,8 +25,13 @@ let deletePost = (data) => {
 }
 
 // fonction like d'un post
-let likedPost = (post) => {
-    return Axios.post('/api/post/like', post)
+let likedPost = (postId, likes) => {
+    const profil = accountService.tokenDecode(accountService.getToken())
+    return Axios.post('/api/post/like', {
+        _id: postId,
+        likes: likes,
+        userId: profil.userId,
+    })
 }
 
 // fonction modifier un post
