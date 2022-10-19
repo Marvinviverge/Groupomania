@@ -1,5 +1,5 @@
 import React, { useEffect, useState, } from 'react';
-//import { useNavigate } from 'react-router-dom';
+
 import './home.css'
 import moment from 'moment';
 import 'moment/locale/fr';
@@ -15,7 +15,6 @@ import ModifyPost from '@/components/ModifyPost';
 const Home = () => {
     moment.locale('fr')
 
-    // let navigate = useNavigate();
     const [users, setUsers] = useState([]);
     const [profil, setProfil] = useState([]);
     const [allpost, setAllpost] = useState([]);
@@ -57,15 +56,11 @@ const Home = () => {
     };
 
     useEffect(() => {
-        //if (flag.current === false) {
-
         functionGetProfil();
         functionAllPosts();
         functionGetAllUsers();
 
-        //}
-
-        return //() => flag.current = true
+        return
     }, [load])
 
     // affichage de tout les user
@@ -126,11 +121,7 @@ const Home = () => {
             <li className="post" id={post.post._id} key={post.post._id}>
 
                 <div className="card">
-                    <div className="card-image">
-                        {post.post.imageUrl !== undefined ? (
-                            <img src={"http://localhost:3000/images/postImg/" + post.post.imageUrl} crossOrigin="anonymous" alt="ImagePoste" />
-                        ) : ("")}
-                    </div>
+
                     <div className="card-content">
                         <div className="media">
                             <div className="media-left">
@@ -154,10 +145,18 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
+                        <div className="card-image">
+                            {post.post.imageUrl !== undefined ? (
+                                <img src={"http://localhost:3000/images/postImg/" + post.post.imageUrl} crossOrigin="anonymous" alt="ImagePoste" />
+                            ) : ("")}
+                        </div>
                         <span className="is-divider2"></span>
                         <div className="content">
+                            <br />
                             {post.post.text}
                             <br />
+                            <br />
+                            <span className="is-divider2"></span>
                             <span className="likeOrNot">Posté {moment(post.post.createdAt).fromNow()}
                                 <span className="iconModify" onClick={() => {
                                     let likes = 1

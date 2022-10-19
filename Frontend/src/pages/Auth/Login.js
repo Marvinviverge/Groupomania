@@ -35,6 +35,8 @@ const Login = () => {
                 })
                 .catch(error => {
                     setMsg(error);
+                    alert('Veuillez entrer une adresse mail et/ou un mot de passe valide')
+                    window.location.reload()
                 })
 
         } catch (error) {

@@ -2,7 +2,6 @@
 import axios from 'axios'
 import { accountService } from '@/_services/account.service'
 
-
 const Axios = axios.create({
     baseURL: 'http://localhost:3000',
     headers: {
@@ -21,6 +20,19 @@ Axios.interceptors.request.use(request => {
     }
 
     return request
+})
+
+/**
+ * Interceptor des réponses de l'API
+ */
+Axios.interceptors.response.use(response => {
+    return response
+}, error => {
+
+    if (error.response.status === 401) {
+        accountService.logout()
+        window.location.reload()
+    }
 })
 
 export default Axios
